@@ -7,7 +7,7 @@
 #include "pico_debounce.h"
 
 /* one timeout for each gpio, set as debounce_timeouts[gpio] */
-volatile absolute_time_t debounce_timeouts[NGPIO] = { 0u };
+static volatile absolute_time_t debounce_timeouts[NGPIO] = { 0u };
 
 
 /** debounce function takes gpio pin to debounce as argument and
@@ -26,5 +26,3 @@ bool debounce (uint gpio)
   return false;
 }
 
-/* alternate setting of timeout */
-// debounce_timeouts[gpio] = get_absolute_time() + DEBOUNCE_MS;

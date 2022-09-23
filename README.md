@@ -9,15 +9,24 @@ In the button callback, the check of the debounce function passing the GPIO pin 
 
 The check requires nothing but checking a single-element in an array. Setting requires only an assignment of the future time using `make_timeout_time_ms(DEBOUNCE_MS)`.
 
-The code is trivial and broken into a header and source file, but can easily be cut and pasted into individual code. The only requirement other than including the header is the need to declare an `extern` variable for the array holding the timeouts.
+The code is trivial and broken into a header and source file, but can easily be cut and pasted into individual code.
 
-A note on the debounce period. The momentary breadboard buttons have horrible debounce times and can bounce both within the switch itself and when the legs of the button make contact within the breadboard itself. For these buttons a large debounce of 200 ms is needed to avoid debounce (some are better than others). I have tested and have bounces with a 180 ms period, but effectively all bounce is eliminated by 200 ms. This also leaves a reasonable opportunity to respond to double-click if desired. Pressing the button 5 times in a second is a fairly rapid rate to begin with.
+A note on the debounce period. The momentary breadboard buttons have horrible debounce characteristics and can bounce both within the switch itself and when the legs of the button make contact within the breadboard. For these buttons a large debounce of 200 ms is needed to avoid debounce (some are better than others). I have tested and have bounces with a 180 ms period, but effectively all bounce is eliminated by 200 ms. This also leaves a reasonable opportunity to respond to double-click if desired. Pressing the button 5 times in a second is a fairly rapid rate to begin with.
 
 If your switch is soldered in with good bounce characteristics, you can adjust the debounce period as desired. A minimum of 35 - 50 ms should accommodate most well made buttons.
 
 **Example Program**
 
-The example program provides is a variation on the button count example from pico-examples that uses GPIO 16 for the count increment button and GPIO 17 for counter decrement. The count is display via stdio and will display on the terminal. ANSI escapes are used to have the count update in-place on the terminal. If your terminal doesn't support ANSI escapes you can simply remove them from the example program. The on-board LED is turned on for each odd-number of the count variable.
+The example program provides is a variation on the button count example from pico-examples that uses GPIO 16 for the count increment button and GPIO 17 for counter decrement. The count is displayed via stdio and will display on the terminal. ANSI escapes are used to have the count update in-place on the terminal. If your terminal doesn't support ANSI escapes you can simply remove them from the example program. The on-board LED is turned on for each odd-number of the count variable.
+
+To wire the buttons to the pico, just connect the buttons to GPIO 16 & 17 with the other side of each button to gound, GPIO 16 & 17 are the bottom two pins on the right side with the USB connector up top, e.g.
+
+```none
+                |                |
+                |        GPIO 17 |--- Down Button --> Ground
+                |        GPIO 16 |--- Up Button --> Ground
+                +----------------+
+```
 
 Due to the quirky nature of the pico-SDK stdio, a short delay is used in the program loop to keep the output at a sane rate. Normally you would only update the count when it changed, but if you include your output inside a conditional, the output is disabled. The Program output will look similar to the following in your terminal:
 

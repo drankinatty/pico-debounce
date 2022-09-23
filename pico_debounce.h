@@ -20,11 +20,6 @@
 #define DEBOUNCE_MS   200
 
 
-/* Any source using debounce requires extern declaration of
- *
- * extern volatile absolute_time_t debounce_timeouts[NGPIO];
- */
-
 /** debounce function takes gpio pin to debounce as argument and
  *  returns true if pin is currently in debounce state, false otherwise
  */

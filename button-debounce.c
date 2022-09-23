@@ -19,9 +19,6 @@
 
 #define LED_PIN      PICO_DEFAULT_LED_PIN
 
-/* required extern for debounce_timeouts array */
-extern volatile absolute_time_t debounce_timeouts[NGPIO];
-
 volatile uint count = 0;
 
 /** button_callback checks/sets debounce state returning
